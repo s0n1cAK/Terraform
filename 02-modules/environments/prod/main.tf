@@ -10,8 +10,8 @@ terraform {
 
 locals {
   zone        = "ru-central1-a"
-  env         = "dev"
-  cidr_blocks = ["10.78.0.0/24"]
+  env         = "prod"
+  cidr_blocks = ["10.79.0.0/24"]
 }
 
 
@@ -24,11 +24,9 @@ provider "yandex" {
 module "network" {
   source = "../../modules/network"
 
-  project_name = "tfModules"
-  zone         = local.zone
-  environment  = local.env
-  cidr_blocks  = local.cidr_blocks
-  additional_labels = {
-    "lesson" = "env-isolation"
-  }
+  project_name      = "tfModules"
+  zone              = local.zone
+  environment       = local.env
+  cidr_blocks       = local.cidr_blocks
+  additional_labels = {}
 }

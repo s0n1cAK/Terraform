@@ -4,13 +4,15 @@ locals {
 
   init_labels = {
     "module" = "network"
-    }
-  labels = merge(local.init_labels, var.additional_labels)
+    "env"    = var.environment
+    "zone"   = var.zone
+  }
+  labels = merge(var.additional_labels, local.init_labels)
 }
 
 variable "environment" {
-  type    = string
-  
+  type = string
+
   validation {
     condition     = contains(local.environments, var.environment)
     error_message = "The environment must be in dev/staging/prod."
@@ -18,18 +20,21 @@ variable "environment" {
 }
 
 variable "zone" {
-  type    = string
+  type = string
 }
 
 variable "project_name" {
-  type    = string
+  type = string
 }
 
 
 variable "cidr_blocks" {
-  type    = list(string)
+  type = list(string)
 }
 
 variable "additional_labels" {
   type = map(string)
+  default = {
+
+  }
 }
